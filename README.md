@@ -55,7 +55,7 @@ npm install
 
 4. **Start Development Servers**
 # Backend (Terminal 1)
-cd backend
+cd backend <br/>
 npm run dev
 
 # Frontend - serve static files (Terminal 2)
