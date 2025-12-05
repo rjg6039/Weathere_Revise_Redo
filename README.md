@@ -112,19 +112,19 @@ External Services <br/>
 3. Monitor AI Analysis: Watch the AI summary update as feedback accumulates
 
 ## 🔧 Configuration
-Environment Variables
-Variable	Purpose	Required
-MONGODB_URI	Database connection	✅
-JWT_SECRET	Authentication security	✅
-OPENAI_API_KEY	AI sentiment analysis	❌ (Optional)
-ENABLE_DEMO_BOTS	Automated demo system	❌
+Environment Variables <br/>
+Variable	Purpose	Required <br/>
+MONGODB_URI	Database connection	✅ <br/>
+JWT_SECRET	Authentication security	✅ <br/>
+OPENAI_API_KEY	AI sentiment analysis	❌ (Optional) <br/>
+ENABLE_DEMO_BOTS	Automated demo system	❌ <br/>
 
 ## Bot System Configuration
 The demo bot system can be configured through:
 
-Frequency: Adjust how often bots comment (2 minutes default)
-Activation: Enable/disable bot system dynamically
-Content: Customize bot comment patterns in server.js
+Frequency: Adjust how often bots comment (2 minutes default) <br/>
+Activation: Enable/disable bot system dynamically <br/>
+Content: Customize bot comment patterns in server.js <br/>
 
 ## 🌐 Deployment
 ### Render.com Deployment
