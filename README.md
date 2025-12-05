@@ -64,24 +64,24 @@ cd frontend
 npx serve . -p 3000
 
 ## 🏗️ Architecture
-Frontend (Static Site)
-├── HTML/CSS/JavaScript
-├── Weather data display
-├── User interaction
-└── API communication
-
-Backend (Node.js/Express)
-├── RESTful API
-├── MongoDB database
-├── User authentication
-├── AI sentiment analysis
-└── Bot scheduler
-
-External Services
-├── Open-Meteo (Weather data)
-├── MongoDB Atlas (Database)
-├── OpenAI (AI analysis)
-└── Render.com (Hosting)
+Frontend (Static Site) <br/>
+├── HTML/CSS/JavaScript <br/>
+├── Weather data display <br/>
+├── User interaction <br/>
+└── API communication <br/>
+ <br/>
+Backend (Node.js/Express) <br/>
+├── RESTful API <br/>
+├── MongoDB database <br/>
+├── User authentication <br/>
+├── AI sentiment analysis <br/>
+└── Bot scheduler <br/>
+ <br/>
+External Services <br/>
+├── Open-Meteo (Weather data) <br/>
+├── MongoDB Atlas (Database) <br/>
+├── OpenAI (AI analysis) <br/>
+└── Render.com (Hosting) <br/>
 
 ## 📡 API Endpoints
 ### Authentication
