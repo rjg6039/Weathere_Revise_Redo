@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weathere – Forecast & Feedback</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="clear-sky">
+<div class="container">
+    <div class="weather-section">
+        <div class="header">
+            <div class="location-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="location-input" placeholder="Search for a city..." aria-label="Search for a city">
+            </div>
+            <div class="suggestions" id="suggestions"></div>
+            <div class="location-display">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="current-location">San Francisco, CA, USA</span>
+                <button class="favorite-toggle" id="add-favorite-btn" title="Add to favorites" type="button">
+                    <i class="fas fa-star"></i>
+                </button>
+            </div>
+            <div class="date" id="current-date"></div>
+        </div>
+        <div class="tabs">
+            <div class="tab active" data-tab="weekly" role="tab" aria-selected="true">Weekly</div>
+            <div class="tab" data-tab="hourly" role="tab" aria-selected="false">Hourly</div>
+        </div>
+        <div class="content" id="weather-content">
+            <div class="loading">
+                <div class="spinner" aria-hidden="true"></div>
+                <p>Loading weather data...</p>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-star"></i> Favorite Locations
+            </div>
+            <div class="favorites-list" id="favorites-list"></div>
+        </div>
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-balance-scale"></i> Weather Comparison
+            </div>
+            <div class="comparison-controls">
+                <div class="comparison-input-container">
+                    <input type="text" class="comparison-input" id="comparison-input" placeholder="Enter location to compare">
+                </div>
+                <button class="comparison-button" id="compare-button">Compare</button>
+            </div>
+            <div class="comparison-results" id="comparison-results"></div>
+        </div>
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-chart-line"></i> Weather Patterns
+            </div>
+            <div class="patterns-content" id="patterns-content">
+                Loading weather patterns...
+            </div>
+        </div>
+        <div class="footer">
+            Updated just now • Data from Open-Meteo • <a href="./admin.html" style="color:#4a69bd;text-decoration:none;">Status</a>
+        </div>
+    </div>
+    <div class="feedback-section">
+        <div class="feedback-header">
+            <div class="feedback-title">
+                <i class="fas fa-comments"></i> Weather Feedback
+            </div>
+            <button class="auth-button" id="auth-button">
+                <i class="fas fa-user"></i> Sign in
+            </button>
+        </div>
+        <div class="feedback-content">
+            <div class="auth-panel" id="auth-panel">
+                <div style="margin-bottom:6px;font-weight:600;">Sign in or register</div>
+                <label for="auth-email">Email</label>
+                <input type="email" id="auth-email" placeholder="you@example.com">
+                <label for="auth-password">Password</label>
+                <input type="password" id="auth-password" placeholder="••••••••">
+                <label for="auth-displayName">Display name</label>
+                <input type="text" id="auth-displayName" placeholder="Name shown in comments">
+                <div class="auth-panel-actions">
+                    <button class="auth-small-btn login" id="auth-login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign in
+                    </button>
+                    <button class="auth-small-btn register" id="auth-register-btn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </div>
+                <div id="auth-message" style="margin-top:6px;font-size:11px;color:#555;"></div>
+            </div>
+
+            <div class="feedback-stats">
+                <div class="stat">
+                    <div class="stat-value" id="likes-count">0</div>
+                    <div class="stat-label">Likes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="dislikes-count">0</div>
+                    <div class="stat-label">Dislikes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="accuracy-percent">–</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+            </div>
+            <div class="feedback-form">
+                <div class="form-title">
+                    <i class="fas fa-comment-dots"></i> Share your feedback
+                </div>
+                <textarea class="feedback-textarea" id="feedback-text" placeholder="How accurate is the current weather?"></textarea>
+                <div class="feedback-actions">
+                    <button class="feedback-btn like-btn" id="like-btn">
+                        <i class="fas fa-thumbs-up"></i> Like
+                    </button>
+                    <button class="feedback-btn dislike-btn" id="dislike-btn">
+                        <i class="fas fa-thumbs-down"></i> Dislike
+                    </button>
+                </div>
+            </div>
+            <div class="ai-summary">
+                <div class="ai-summary-title">
+                    <i class="fas fa-robot"></i> AI Weather Analysis
+                </div>
+                <div class="ai-summary-content" id="ai-summary">
+                    AI analysis will appear here once feedback is available and the backend is configured with an OpenAI API key.
+                </div>
+            </div>
+            <div class="comments-section">
+                <div class="comments-title">
+                    <i class="fas fa-comments"></i> User Comments
+                </div>
+                <div class="comments-list" id="comments-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.WEATHERE_API_BASE_URL = "https://weathere4-backend.onrender.com";
+</script>
+<script src="js/weather-core.js"></script>
+<script src="js/feedback.js"></script>
+</body>
+</html>

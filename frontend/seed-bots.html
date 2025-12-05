@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Control Panel - Weathere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .control-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .control-btn {
+            background: linear-gradient(to right, #4a69bd, #6a89cc);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: linear-gradient(to right, #3a59ad, #5a79bc);
+            transform: translateY(-2px);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+        }
+
+        .control-btn.inactive {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+        }
+
+        .frequency-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .frequency-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+        }
+
+        .status-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .status-item {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .status-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .success { color: #27ae60; }
+        .warning { color: #f39c12; }
+        .error { color: #e74c3c; }
+        .info { color: #3498db; }
+
+        .bot-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .bot-item {
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #4a69bd;
+        }
+
+        .log-output {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #3498db;
+        }
+
+        .log-time {
+            color: #95a5a6;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="clear-sky">
+<div class="control-container">
+    <h1><i class="fas fa-robot"></i> Bot Control Panel</h1>
+    <p>Manage demo bot users and their comment frequency for San Francisco weather feedback.</p>
+
+    <!-- Bot Status Panel -->
+    <div class="section">
+        <h2><i class="fas fa-chart-bar"></i> Bot Status</h2>
+        <div class="status-panel" id="status-panel">
+            <div class="status-item">
+                <div class="status-label">Scheduler Status</div>
+                <div class="status-value" id="status-active">Loading...</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Comment Frequency</div>
+                <div class="status-value" id="status-frequency">Loading...</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Active Bot Users</div>
+                <div class="status-value" id="status-bot-count">Loading...</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Total Comments</div>
+                <div class="status-value" id="status-comment-count">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bot Control Section -->
+    <div class="section">
+        <h2><i class="fas fa-sliders-h"></i> Bot Controls</h2>
+
+        <div style="margin: 15px 0;">
+            <button class="control-btn" id="btn-activate">Activate Bots</button>
+            <button class="control-btn inactive" id="btn-deactivate">Deactivate Bots</button>
+            <button class="control-btn" id="btn-comment-now">Comment Now</button>
+        </div>
+
+        <div class="frequency-control">
+            <label for="frequency-input">Comment Frequency (seconds):</label>
+            <input type="number" id="frequency-input" class="frequency-input" min="30" max="3600" value="120">
+            <button class="control-btn" id="btn-set-frequency">Set Frequency</button>
+        </div>
+
+        <p><small>Minimum: 30 seconds, Maximum: 3600 seconds (1 hour)</small></p>
+    </div>
+
+    <!-- Bot Users Section -->
+    <div class="section">
+        <h2><i class="fas fa-users"></i> Bot Users</h2>
+        <button class="control-btn" id="btn-seed-bots">
+            <i class="fas fa-seedling"></i> Seed/Reset Bot Users
+        </button>
+
+        <div class="bot-list" id="bot-list">
+            <!-- Bot users will be populated here -->
+        </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="section">
+        <h2><i class="fas fa-terminal"></i> Activity Log</h2>
+        <button class="control-btn" id="btn-clear-log">Clear Log</button>
+        <div class="log-output" id="log-output">
+            <div class="log-entry"><span class="log-time" id="current-time"></span>System initialized</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="index.html" class="control-btn">
+            <i class="fas fa-arrow-left"></i> Back to Weather App
+        </a>
+    </div>
+</div>
+
+<script>
+    const API_BASE = "https://weathere4-backend.onrender.com";
+    let logEntries = [];
+
+    // Update current time
+    function updateCurrentTime() {
+        const now = new Date();
+        document.getElementById('current-time').textContent =
+            now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+    }
+
+    // Add log entry
+    function addLogEntry(message, type = 'info') {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+        const logEntry = `<div class="log-entry ${type}"><span class="log-time">${timeStr}</span>${message}</div>`;
+
+        logEntries.push(logEntry);
+        if (logEntries.length > 50) logEntries.shift(); // Keep only last 50 entries
+
+        document.getElementById('log-output').innerHTML = logEntries.join('');
+        document.getElementById('log-output').scrollTop = document.getElementById('log-output').scrollHeight;
+    }
+
+    // Fetch bot status
+    async function fetchBotStatus() {
+        try {
+            const response = await fetch(`${API_BASE}/api/bots/status`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const data = await response.json();
+
+            // Update status panel
+            document.getElementById('status-active').textContent = data.active ? 'ACTIVE' : 'INACTIVE';
+            document.getElementById('status-active').className = data.active ? 'status-value success' : 'status-value error';
+
+            document.getElementById('status-frequency').textContent = `${data.frequency}s`;
+            document.getElementById('status-frequency').className = 'status-value info';
+
+            document.getElementById('status-bot-count').textContent = data.botUsers;
+            document.getElementById('status-bot-count').className = data.botUsers > 0 ? 'status-value success' : 'status-value warning';
+
+            document.getElementById('status-comment-count').textContent = data.totalComments;
+            document.getElementById('status-comment-count').className = 'status-value info';
+
+            // Update frequency input
+            document.getElementById('frequency-input').value = data.frequency;
+
+            // Update button states
+            document.getElementById('btn-activate').className = data.active ? 'control-btn active' : 'control-btn';
+            document.getElementById('btn-deactivate').className = data.active ? 'control-btn inactive' : 'control-btn inactive';
+
+            return data;
+        } catch (error) {
+            addLogEntry(`❌ Failed to fetch status: ${error.message}`, 'error');
+            return null;
+        }
+    }
+
+    // Seed bot users
+    async function seedBots() {
+        addLogEntry('🌱 Seeding bot users...');
+
+        try {
+            const response = await fetch(`${API_BASE}/api/scripts/seed-bots`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const data = await response.json();
+
+            if (data.success) {
+                addLogEntry(`✅ ${data.message}`, 'success');
+                addLogEntry(`📊 Created: ${data.botsCreated.join(', ') || 'None'}`, 'info');
+                addLogEntry(`📊 Existing: ${data.botsExisting.join(', ') || 'None'}`, 'info');
+
+                // Update bot list
+                updateBotList();
+                // Refresh status
+                fetchBotStatus();
+            } else {
+                addLogEntry(`❌ ${data.error}`, 'error');
+            }
+        } catch (error) {
+            addLogEntry(`❌ Failed to seed bots: ${error.message}`, 'error');
+        }
+    }
+
+    // Control bots
+    async function controlBots(action, frequency = null) {
+        addLogEntry(`⚙️ Sending control command: ${action}${frequency ? ` (${frequency}s)` : ''}`);
+
+        try {
+            const response = await fetch(`${API_BASE}/api/bots/control`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, frequency })
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const data = await response.json();
+
+            if (data.success) {
+                addLogEntry(`✅ ${data.message}`, 'success');
+                addLogEntry(`📊 Frequency: ${data.frequency}s`, 'info');
+
+                // Refresh status
+                fetchBotStatus();
+            } else {
+                addLogEntry(`❌ Operation failed`, 'error');
+            }
+        } catch (error) {
+            addLogEntry(`❌ Control failed: ${error.message}`, 'error');
+        }
+    }
+
+    // Trigger immediate comment
+    async function commentNow() {
+        addLogEntry('🚀 Triggering immediate bot comment...');
+
+        try {
+            const response = await fetch(`${API_BASE}/api/bots/comment-now`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const data = await response.json();
+
+            if (data.success) {
+                addLogEntry(`✅ ${data.message}`, 'success');
+            } else {
+                addLogEntry(`❌ ${data.error}`, 'error');
+            }
+        } catch (error) {
+            addLogEntry(`❌ Immediate comment failed: ${error.message}`, 'error');
+        }
+    }
+
+    // Update bot list display
+    function updateBotList() {
+        const botUsers = [
+            { email: "weather_bot1@demo.com", displayName: "WeatherBot1" },
+            { email: "weather_bot2@demo.com", displayName: "WeatherBot2" },
+            { email: "weather_bot3@demo.com", displayName: "WeatherBot3" },
+            { email: "weather_bot4@demo.com", displayName: "WeatherBot4" }
+        ];
+
+        const botListHTML = botUsers.map(bot => `
+            <div class="bot-item">
+                <strong>${bot.displayName}</strong><br>
+                <small>${bot.email}</small>
+            </div>
+        `).join('');
+
+        document.getElementById('bot-list').innerHTML = botListHTML;
+    }
+
+    // Event listeners
+    document.getElementById('btn-seed-bots').addEventListener('click', seedBots);
+    document.getElementById('btn-activate').addEventListener('click', () => controlBots('activate'));
+    document.getElementById('btn-deactivate').addEventListener('click', () => controlBots('deactivate'));
+    document.getElementById('btn-comment-now').addEventListener('click', commentNow);
+    document.getElementById('btn-set-frequency').addEventListener('click', () => {
+        const frequency = parseInt(document.getElementById('frequency-input').value);
+        if (frequency >= 30 && frequency <= 3600) {
+            controlBots('activate', frequency);
+        } else {
+            addLogEntry('❌ Frequency must be between 30 and 3600 seconds', 'error');
+        }
+    });
+    document.getElementById('btn-clear-log').addEventListener('click', () => {
+        logEntries = [];
+        document.getElementById('log-output').innerHTML = '<div class="log-entry">Log cleared</div>';
+    });
+
+    // Initialize
+    window.addEventListener('load', () => {
+        updateCurrentTime();
+        updateBotList();
+        fetchBotStatus();
+        addLogEntry('🚀 Bot Control Panel initialized');
+
+        // Update time every second
+        setInterval(updateCurrentTime, 1000);
+        // Refresh status every 10 seconds
+        setInterval(fetchBotStatus, 10000);
+    });
+</script>
+</body>
+</html>

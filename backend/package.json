@@ -1,0 +1,30 @@
+{
+  "name": "weathere-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Weathere (MongoDB + OpenAI sentiment analysis)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "seed-demo": "node scripts/seed-demo-feedback.js",
+    "seed-bots": "node scripts/bot-demo.js",
+    "start-with-bots": "ENABLE_DEMO_BOTS=true node server.js",
+    "test-bots": "curl https://weathere4-backend.onrender.com/api/scripts/seed-bots"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^4.19.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.0",
+    "openai": "^4.58.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
