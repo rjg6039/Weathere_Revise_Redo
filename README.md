@@ -193,17 +193,17 @@ AI analysis powered by OpenAI
 
 ## 📁 Project Structure
 weathere-open-source/
-├── frontend/                 # Static frontend files
-│   ├── index.html           # Main application
-│   ├── admin.html           # System status dashboard
-│   ├── seed-bots.html       # Bot management panel
-│   ├── css/                 # Stylesheets
-│   └── js/                  # JavaScript functionality
-├── backend/                 # Node.js backend
-│   ├── server.js           # Main server file
-│   ├── package.json        # Dependencies
-│   └── scripts/            # Utility scripts
-├── README.md               # This file
-└── LICENSE                 # MIT License
+├── frontend/                 # Static frontend files <br/>
+│   ├── index.html           # Main application <br/>
+│   ├── admin.html           # System status dashboard <br/>
+│   ├── seed-bots.html       # Bot management panel <br/>
+│   ├── css/                 # Stylesheets <br/>
+│   └── js/                  # JavaScript functionality <br/>
+├── backend/                 # Node.js backend <br/>
+│   ├── server.js           # Main server file <br/>
+│   ├── package.json        # Dependencies <br/>
+│   └── scripts/            # Utility scripts <br/>
+├── README.md               # This file <br/>
+└── LICENSE                 # MIT License <br/>
 
 Quick Start Tip: Visit the live demo at www.weathere4-frontend.onrender.com to see the application in action before setting up your own instance!
