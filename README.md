@@ -46,7 +46,7 @@ cd Weathere_Revise_Redo
 cd backend
 npm install
 
-3. **Environment Configuration Create backend/.env:*
+3. **Environment Configuration** Create backend/.env:*
 - MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/weathere
 - OPENAI_API_KEY=your_openai_api_key_here
 - JWT_SECRET=your_secure_jwt_secret_here
