@@ -47,11 +47,11 @@ cd backend
 npm install
 
 3. **Environment Configuration Create backend/.env:*
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/weathere
-OPENAI_API_KEY=your_openai_api_key_here
-JWT_SECRET=your_secure_jwt_secret_here
-ENABLE_DEMO_BOTS=true
-MONGODB_DB_NAME=weathere
+- MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/weathere
+- OPENAI_API_KEY=your_openai_api_key_here
+- JWT_SECRET=your_secure_jwt_secret_here
+- NABLE_DEMO_BOTS=true
+- MONGODB_DB_NAME=weathere
 
 4. **Start Development Servers**
 # Backend (Terminal 1)
