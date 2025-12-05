@@ -180,11 +180,11 @@ This project is licensed under the MIT License - see the LICENSE [blocked] file 
 - Demo Site: Visit the live deployment for working examples
 
 ## 🔮 Roadmap
- Enhanced mobile experience
- Additional weather data sources
- Advanced AI analysis features
- Social features and user profiles
- Historical weather pattern analysis
+ - Enhanced mobile experience
+ - Additional weather data sources
+ - Advanced AI analysis features
+ - Social features and user profiles
+ - Historical weather pattern analysis
 
 ### Built with ❤️ using modern web technologies and AI integration.
 
