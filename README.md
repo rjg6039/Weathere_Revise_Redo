@@ -39,8 +39,8 @@ A full-stack weather application that combines real-time forecasts with AI-power
 ### Installation
 
 1. **Clone the repository**
-git clone https://github.com/yourusername/weathere-open-source.git
-cd weathere-open-source
+git clone https://github.com/rjg6039/Weathere_Revise_Redo.git
+cd Weathere_Revise_Redo
 
 2. **Backend Setup**
 cd backend
